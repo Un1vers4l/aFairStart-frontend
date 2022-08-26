@@ -76,7 +76,7 @@
             <h4>Who are you working with? </h4>
             <h4 class="selected"></h4>
             <!-- teamMate.count needs to be implenmented -->
-            <h4>{{teamMates.length}}</h4>
+            <!-- <h4>{{teamMates.length}}</h4> -->
           </ion-label>
           <ion-label slot="end">
             <span class="material-icons-outlined ion-accordion-toggle-icon">expand_more
@@ -100,8 +100,8 @@
                   <ion-input type="text" autofocus="true" color="primary" [(ngModel)]="newTeamMate"></ion-input>
                 </ion-item>
                 <ion-item lines="none">
-                  <ion-button slot="start" (click)="cancel()">Cancel</ion-button>
-                  <ion-button slot="end" (click)="saveTeamMate()">Done</ion-button>
+                  <ion-button slot="start" fill="none" (click)="cancel()"> Cancel </ion-button>
+                  <ion-button slot="end" fill="solid" (click)="saveTeamMate()"> Done </ion-button>
                 </ion-item>
               </div>
             </ion-radio-group>

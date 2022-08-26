@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CountdownConfig } from 'ngx-countdown';
 
 @Component({
@@ -12,7 +13,7 @@ export class PlayerComponent implements OnInit {
   @Input() activeBookingEnd;
   @Input() leftTime;
   countdownConfig: CountdownConfig;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.countdownConfig = { leftTime: this.leftTime, demand: false, format: 'hh:mm' };

@@ -131,9 +131,20 @@
 
   <!--Player Modal-->
   <ion-modal #modal [isOpen]="show | async" (didDismiss)="dismissModal()">
+
     <ng-template>
-      <app-player [activeBookingStart]="activeBookingStart" [activeBookingEnd]="activeBookingEnd"
-        [leftTime]="getTimeLeft(this.activeBooking.scheduledEnd)"></app-player>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons (click)="modal.dismiss()" class="statusIcon" slot="end"><span class="material-icons-outlined">
+              close
+            </span>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <app-player [activeBookingStart]="activeBookingStart" [activeBookingEnd]="activeBookingEnd"
+          [leftTime]="getTimeLeft(this.activeBooking.scheduledEnd)"></app-player>
+      </ion-content>
     </ng-template>
   </ion-modal>
 </ion-content>

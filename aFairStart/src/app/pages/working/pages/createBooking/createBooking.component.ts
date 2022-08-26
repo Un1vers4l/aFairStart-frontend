@@ -24,7 +24,7 @@ export class CreateBookingComponent implements OnInit {
   teamMateInput: boolean = false;
   newTeamMate: string;
   constructor(private apiHttpService: ApiHttpService,
-    private apiEndpointsService: ApiEndpointsService, private router: Router) { this.getCalendarInfo() }
+    private apiEndpointsService: ApiEndpointsService, private router: Router) { }
 
   ngOnInit() {
     this.dateMin = new Date(Date.now()).toISOString();
@@ -48,9 +48,12 @@ export class CreateBookingComponent implements OnInit {
   }
 
   public saveTeamMate() {
-    this.teamMates.push(this.newTeamMate);
+    if (this.newTeamMate != null) {
+      this.teamMates.push(this.newTeamMate);
+    }
     this.newTeamMate = "";
     this.teamMateInput = false;
+
   }
 
   public cancel() {
