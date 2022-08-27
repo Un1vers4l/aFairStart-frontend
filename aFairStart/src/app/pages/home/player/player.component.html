@@ -29,7 +29,7 @@
       </ion-list-header>
       <hr />
 
-      <div class="player">
+      <div class="player" *ngIf="show | async">
         <ion-grid>
           <ion-row>
             <ion-col>
@@ -55,11 +55,20 @@
               </a>
             </ion-col>
             <ion-col>
-              <a>
-                <ion-button class="button" expand="block">
-                  <h4>Finish Up</h4>
-                </ion-button>
-              </a>
+              <div *ngIf="!(isSignedOn| async)">
+                <a>
+                  <ion-button (click)="signOn()" class="button" expand="block">
+                    <h4>Unlock</h4>
+                  </ion-button>
+                </a>
+              </div>
+              <div *ngIf="(isSignedOn | async)">
+                <a>
+                  <ion-button (click)="signOff()" class="button" expand="block" color="danger">
+                    <h4>Finish Up</h4>
+                  </ion-button>
+                </a>
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>

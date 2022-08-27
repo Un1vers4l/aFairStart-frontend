@@ -32,11 +32,15 @@ export class HomePage implements OnInit {
 
 
   ngOnInit(): void {
+    this.getActiveBooking();
+  }
+  private getActiveBooking() {
     this.apiHttpService
       .get(this.apiEndpointsService.getCurrentBooking())
       .subscribe(
         (data) => {
-          this.activeBooking = JSON.parse(JSON.stringify(data[0]));
+          let l = JSON.parse(JSON.stringify(data)).length;
+          this.activeBooking = JSON.parse(JSON.stringify(data[l - 1]));
           this.activeBookingStart = this.splitTimeHHMM(
             this.activeBooking.scheduledStart
           );
@@ -49,6 +53,8 @@ export class HomePage implements OnInit {
             this.timeLeft = this.getTimeLeft(this.activeBooking.scheduledEnd);
             this.countdownConfig.leftTime = this.timeLeft;
             this.hasActiveBooking = new BehaviorSubject<boolean>(true);
+            console.log(this.activeBooking.loggedOn);
+            this.isSignedOn = new BehaviorSubject<boolean>(this.activeBooking.loggedOn);
             setTimeout(() => {
               this.countdown.begin();
             })
@@ -59,7 +65,6 @@ export class HomePage implements OnInit {
         }
       );
   }
-
   private splitTimeHHMM(date: string): string {
     let result = date.split('T')[1];
     return result.split(':')[0] + ':' + result.split(':')[1];
@@ -68,11 +73,13 @@ export class HomePage implements OnInit {
   //großer Player in Modal
   public showModal() {
     if (this.activeBooking.done == false) {
+      this.getActiveBooking();
       this.show = new BehaviorSubject<boolean>(true);
     }
   }
 
   public dismissModal() {
+    this.getActiveBooking();
     this.show = new BehaviorSubject<boolean>(false);
   }
 
@@ -80,36 +87,5 @@ export class HomePage implements OnInit {
     return (new Date(end).getTime() - Date.now()) / 1000
   }
 
-  public signOn() {
-    this.apiHttpService
-      .put(
-        this.apiEndpointsService.putSignOn(this.activeBooking.id) + '/signOn',
-        null
-      )
-      .subscribe(
-        (data) => {
-          this.isSignedOn = new BehaviorSubject<boolean>(true);
-          this.show = new BehaviorSubject<boolean>(false);
-        },
-        (error) => {
-          console.log(error.status);
-        }
-      );
-  }
 
-  public signOff() {
-    this.apiHttpService
-      .put(
-        this.apiEndpointsService.putSignOff(this.activeBooking.id) + '/signOff',
-        null
-      )
-      .subscribe(
-        (data) => {
-          this.isSignedOn = new BehaviorSubject<boolean>(false);
-        },
-        (error) => {
-          console.log(error.status);
-        }
-      );
-  }
 }

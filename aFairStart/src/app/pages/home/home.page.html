@@ -142,7 +142,8 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <app-player [activeBookingStart]="activeBookingStart" [activeBookingEnd]="activeBookingEnd"
+        <app-player [isSignedOn]="isSignedOn" [activeBookingId]="activeBooking.id"
+          [activeBookingStart]="activeBookingStart" [activeBookingEnd]="activeBookingEnd"
           [leftTime]="getTimeLeft(this.activeBooking.scheduledEnd)"></app-player>
       </ion-content>
     </ng-template>

@@ -78,19 +78,7 @@ export class CreateBookingComponent implements OnInit {
     }
   }
 
-  private getCalendarInfo() {
-    this.apiHttpService
-      .get(this.apiEndpointsService.getCalendarInfo())
-      .subscribe(
-        (data) => {
-          let json = JSON.parse(JSON.stringify(data));
-          for (const obj of json) {
-            if (obj) {
-              this.upcomingBookings.push(obj);
-            }
-          }
-        });
-  }
+
 
   private convertEstimateTimeToMinutes(hours: number, minutes: number): number {
     return (hours * 60 + minutes);
